@@ -1,6 +1,7 @@
 import { User } from "../models/UserModel.js";
 import bcrypt from "bcrypt";
 import { generateToken } from "./JwtManager.js";
+import Token from "../models/TokenModel.js";
 
 const SALT = Number(process.env.SALT);
 
@@ -33,5 +34,20 @@ export async function authenticateUser({ email, password }) {
     return { message: "Invalid password! please try again", status: 400 };
   }
   const token = generateToken(user);
+  await upsertTokenForUser(user, token);
   return { message: "Signin success", token, status: 200 };
+}
+
+async function upsertTokenForUser(user, token) {
+  const tokenInstance = await Token.findOne({ userId: user._id });
+  if (tokenInstance) {
+    await tokenInstance.deleteOne();
+  }
+
+  await Token.create(
+    new Token({
+      userId: user._id,
+      token,
+    })
+  );
 }
