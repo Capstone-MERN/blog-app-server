@@ -1,4 +1,4 @@
-import { createBlogPost } from "./BlogService.js";
+import { createBlogPost, fetchPosts } from "./BlogService.js";
 
 export async function createBlogController(req, resp) {
   // TODO: remove default genre after testing
@@ -8,4 +8,12 @@ export async function createBlogController(req, resp) {
   }
   await createBlogPost({ userId: req.userId, description, genre });
   resp.status(201).json({ message: "Post created successfully" });
+}
+
+export async function fetchAllBlogsController(_, resp) {
+  const serverResponse = {
+    data: await fetchPosts(),
+    message: "Posts fetched successfully",
+  };
+  resp.status(200).json(serverResponse);
 }
