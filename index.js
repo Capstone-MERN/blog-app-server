@@ -4,6 +4,7 @@ import cors from "cors";
 import { connectToMongoDB } from "./connection.js";
 import AuthRouter from "./routes/AuthRoutes.js";
 import BlogRouter from "./routes/BlogRouter.js";
+import CommentRouter from "./routes/CommentRoutes.js";
 
 dotenv.config();
 const app = express();
@@ -16,6 +17,7 @@ connectToMongoDB();
 
 app.use("/auth", AuthRouter);
 app.use("/blog", BlogRouter);
+app.use("/comment", CommentRouter);
 
 app.listen(PORT, () => {
   console.log(`app is listening at port ${PORT}`);

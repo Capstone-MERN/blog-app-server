@@ -1,21 +1,5 @@
 import { model, Schema } from "mongoose";
 
-const CommentSchema = new Schema({
-  text: {
-    type: String,
-    required: true,
-  },
-  createdAt: {
-    type: Date,
-    default: Date.now,
-  },
-  userId: {
-    // TODO: update it's reference to UserSchema
-    type: String,
-    required: true,
-  },
-});
-
 const BlogSchema = new Schema({
   description: {
     type: String,
@@ -35,7 +19,23 @@ const BlogSchema = new Schema({
     required: true,
     default: "politics",
   },
-  comments: [CommentSchema],
+  comments: [
+    {
+      text: {
+        type: String,
+        required: true,
+      },
+      createdAt: {
+        type: Date,
+        default: Date.now,
+      },
+      userId: {
+        // TODO: update it's reference to UserSchema
+        type: String,
+        required: true,
+      },
+    },
+  ],
 });
 
 const Blog = model("Blog", BlogSchema);
