@@ -17,10 +17,11 @@ const validateEmail = (email) => EMAIL_REGEXP.test(email);
 const validatePassword = (password) => PASSWORD_REGEXP.test(password);
 const validateGender = (gender) =>
   gender === GENDER.FEMALE || gender === GENDER.MALE;
-const validateName = (name) => name && name.length >= 8;
+const validateName = (name) => name && name.length >= 4;
 
 export async function signupController(req, resp) {
   const { name, email, password, gender } = req.body;
+
   if (
     !validateEmail(email) ||
     !validatePassword(password) ||

@@ -48,8 +48,6 @@ export async function fetchAllCommentsByPostId(postId) {
       userIdNameMap.set(user._id.toString(), user.name);
     });
 
-    console.log(userIdNameMap);
-
     const commentsResponse = [];
 
     comments.forEach((comment) => {

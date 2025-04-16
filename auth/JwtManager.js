@@ -23,7 +23,6 @@ export async function authenticateMiddleware(req, resp, next) {
     req.userId = claims.userId;
     next();
   } catch (error) {
-    console.log(error);
     if (error instanceof TokenExpiredError) {
       console.log("token is expired");
     }

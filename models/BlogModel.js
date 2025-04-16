@@ -1,5 +1,11 @@
 import { model, Schema } from "mongoose";
 
+export const SENTIMENT = {
+  POSITIVE: "POSITIVE",
+  NEGATIVE: "NEGATIVE",
+  NEUTRAL: "NEUTRAL",
+};
+
 const BlogSchema = new Schema({
   description: {
     type: String,
@@ -13,6 +19,10 @@ const BlogSchema = new Schema({
     // TODO: update it's reference to UserSchema
     type: String,
     required: true,
+  },
+  sentiment: {
+    type: String,
+    default: SENTIMENT.NEUTRAL,
   },
   genre: {
     type: String,
