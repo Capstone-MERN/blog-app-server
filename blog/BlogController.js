@@ -1,3 +1,4 @@
+import { genres } from "../routes/GenreRoutes.js";
 import { createBlogPost, fetchPosts } from "./BlogService.js";
 
 export async function createBlogController(req, resp) {
@@ -10,9 +11,20 @@ export async function createBlogController(req, resp) {
   resp.status(201).json({ message: "Post created successfully" });
 }
 
-export async function fetchAllBlogsController(_, resp) {
+export async function fetchAllBlogsController(req, resp) {
+  const requestedGenre = req.query.genre;
+  let isValidGenre = false;
+  for (let genre of genres) {
+    if (genre.id === requestedGenre) {
+      isValidGenre = true;
+      break;
+    }
+  }
+  if (!isValidGenre) {
+    return resp.status(400).json({ message: "Please add a genre" });
+  }
   const serverResponse = {
-    data: await fetchPosts(),
+    data: await fetchPosts(requestedGenre),
     message: "Posts fetched successfully",
   };
   resp.status(200).json(serverResponse);

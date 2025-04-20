@@ -3,7 +3,7 @@ import { authenticateMiddleware } from "../auth/JwtManager.js";
 
 const router = Router();
 
-const genres = [
+export const genres = [
   { id: "politics", title: "Politics" },
   { id: "science", title: "Science" },
   { id: "history", title: "History" },

@@ -20,9 +20,9 @@ export async function createBlogPost({ description, genre, userId }) {
   await blog.save();
 }
 
-export async function fetchPosts() {
+export async function fetchPosts(genreId) {
   const posts = await Blog.find(
-    {},
+    { genre: genreId },
     {
       createdAt: true,
       userId: true,
